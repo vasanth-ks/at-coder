@@ -1,3 +1,6 @@
+/*
+https://atcoder.jp/contests/dp/tasks/dp_b
+*/
 #include <iostream>
 #include <bits/stdc++.h>
 
