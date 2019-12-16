@@ -36,6 +36,35 @@ int getLongestPath (const vector <vector <int>> &graph) {
     return *max_element(maxlength.begin(), maxlength.end());
 }
 
+int getLongestPathBFS (const vector <vector <int>> &graph) {
+    int n = graph.size();
+    vector <int> maxlength(n);
+    vector <int> indegree(n);
+
+    for (int node = 1; node < n; ++node) {
+        for (int neighbor : graph[node]) {
+            ++indegree[neighbor];
+        }
+    }
+    queue <int> q;
+    for (int i = 1; i < n; ++i) {
+        if (indegree[i] == 0) {
+            q.emplace(i);
+        }
+    }
+
+    while (!q.empty()) {
+        int curr = q.front(); q.pop();
+        for (int neighbor : graph[curr]) {
+            if (--indegree[neighbor] == 0) {
+                q.emplace(neighbor);
+                maxlength[neighbor] = 1 + maxlength[curr];
+            }
+        }
+    }
+    return *max_element(maxlength.begin(), maxlength.end());
+}
+
 
 int  main () {
     int n, m;
@@ -47,6 +76,6 @@ int  main () {
         cin >> u >> v;
         graph[u].emplace_back(v);
     }
-    cout << getLongestPath(graph) << "\n";
+    cout << getLongestPathBFS(graph) << "\n";
     return 0;
 }
