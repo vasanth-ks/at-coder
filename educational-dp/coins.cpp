@@ -13,7 +13,7 @@ double getProbability (const vector <double> &p) {
     for (int i = 1; i <= n; ++i) {
         vector <double> curr(n + 1);
         for (int j = 0; j <= i; ++j) {
-            /* There can be 0 <= j <= n heads */
+            /* There can be 0 <= j <= i heads */
             if (j > 0) {
                 curr[j] += dp[j - 1] * p[i - 1];
             }
