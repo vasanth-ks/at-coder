@@ -30,6 +30,26 @@ int dfs (const vector <vector <char>> &grid, int row, int col,
     return ways[row][col];
 }
 
+int getNumWays (const vector <vector <char>> &grid) {
+    int rows = grid.size(), cols = grid[0].size();
+    vector <vector <int>> ways(rows, vector <int>(cols));
+
+    for (int r = 0; r < rows; ++r) {
+        for (int c = 0; c < cols; ++c) {
+            if (r == 0 && c == 0) {
+                ways[r][c] = 1;
+            } else {
+                if (grid[r][c] == '.') {
+                    int topRow = r == 0 ? 0 : ways[r - 1][c];
+                    int leftCol = c == 0 ? 0 : ways[r][c - 1];
+                    ways[r][c] = (topRow + leftCol) % mod;
+                }
+            }
+        }
+    }
+    return ways[rows - 1][cols - 1];
+}
+
 int  main () {
     int rows, cols;
     cin >> rows >> cols;
@@ -44,6 +64,8 @@ int  main () {
     }
     vector <vector <int>> ways(rows, vector <int>(cols, -1));
     int result = dfs(grid, 0, 0, ways);
+    cout << result << "\n";
+    result = getNumWays(grid);
     cout << result << "\n";
     return 0;
 }
