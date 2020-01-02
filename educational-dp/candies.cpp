@@ -58,7 +58,6 @@ int getNumWays (const vector <int> &candies, int k) {
 		}
 	}
 	return dp[k];
-
 }
 
 int main() {
